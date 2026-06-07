@@ -22,6 +22,16 @@ public class Subscription {
         this.channel = channel;
         this.createdAt = LocalDateTime.now();
         this.lastNotified = null;
+
+        // Attach this observer to the subject upon creation
+        this.website.attach(this);
+    }
+
+    //Observer Interface Method
+    public void update(Website updatedWebsite) {
+        if (isDue()) {
+            notifyOfUpdate();
+        }
     }
 
     public boolean isDue() {
@@ -36,17 +46,20 @@ public class Subscription {
 
     public void cancel() {
         user.removeSubscription(this);
+        // Detach from the subject when cancelled
+        website.detach(this);
     }
 
     public void notifyOfUpdate() {
         Notification notification = new Notification(
-            "Website " + website.getUrl() + " has been updated.",
-            user.getEmail()
+                "Website " + website.getUrl() + " has been updated.",
+                user.getEmail()
         );
         channel.send(notification);
         this.lastNotified = LocalDateTime.now();
     }
 
+    // Getters and toString remain unchanged...
     public String getSubId()             { return subId; }
     public User getUser()                { return user; }
     public Website getWebsite()          { return website; }
