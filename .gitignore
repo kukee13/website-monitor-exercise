@@ -1,0 +1,26 @@
+# compiled output
+out/
+build/
+target/
+*.class
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# macOS / OS junk
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
